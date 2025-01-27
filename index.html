@@ -9,6 +9,9 @@
 <body>
 <h1>Ollama Chat</h1>
 
+<!-- Think Placeholder -->
+<div id="think-placeholder" class="think-placeholder"></div>
+
 <pre id="output"></pre>
 
 <!-- Thinking Indicator -->
@@ -20,15 +23,16 @@
 </div>
 
 <textarea id="input" placeholder="Type your message here..."></textarea>
+
 <select name="llm" id="llm">
     <option value="1.5b" selected>1.5b</option>
     <option value="1.8b">1.8b</option>
     <option value="14b">14b</option>
 </select>
+
 <button id="send">Send</button>
 
-<!-- Think Placeholder -->
-<div id="think-placeholder" class="think-placeholder"></div>
+
 
 <script>
     async function sendPromptToOllama(prompt, modelLlm) {
@@ -64,7 +68,9 @@
         const input = document.getElementById('input').value;
         const output = document.getElementById('output');
         const thinkingOverlay = document.getElementById('thinking-overlay');
+        const thinkPlaceholder = document.getElementById('think-placeholder');
         output.style.display = 'block';
+
         if (input) {
             // Show the thinking overlay
             thinkingOverlay.style.display = 'flex';
@@ -75,12 +81,38 @@
             // Hide the thinking overlay
             thinkingOverlay.style.display = 'none';
 
-            // Display the response
-            output.textContent += `You: ${input}\nOllama: ${response}\n\n`;
-            document.getElementById('input').value = ''; // Clear input
-            output.scrollTop = output.scrollHeight; // Auto-scroll to bottom
-            console.log(modelLlm);
-            // \u003cthink\u003e\n\n\u003c/think\u003e\n
+            if (response) {
+                // Decode HTML-encoded characters (\u003c -> <, \u003e -> >, etc.)
+                const decodedResponse = response.replace(/\\u003c/g, '<').replace(/\\u003e/g, '>');
+
+                // Use regex to find <think> tags and their content
+                const thinkRegex = /<think>([\s\S]*?)<\/think>/;
+                const thinkMatch = decodedResponse.match(thinkRegex);
+
+                // Extract <think> content if it exists
+                const thinkContent = thinkMatch ? thinkMatch[1].trim() : null;
+
+                if (thinkContent) {
+                    // Display <think> content in the think-placeholder div
+                    thinkPlaceholder.textContent = thinkContent;
+                } else {
+                    // No <think> tags found
+                    thinkPlaceholder.textContent = 'No thoughts to display.';
+                }
+
+                // Remove <think> tags and their content from the response for the main output
+                const restOfResponse = decodedResponse.replace(thinkRegex, '').trim();
+
+                // Display the rest of the response in the output div
+                output.textContent += `You: ${input}\nOllama: ${restOfResponse}\n\n`;
+
+                // Clear input and auto-scroll output
+                document.getElementById('input').value = '';
+                output.scrollTop = output.scrollHeight;
+
+                console.log('Decoded Response:', decodedResponse); // For debugging
+                console.log('Extracted <think> Content:', thinkContent); // For debugging
+            }
         }
     });
 </script>
