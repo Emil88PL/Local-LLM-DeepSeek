@@ -1,8 +1,8 @@
-# Getting Started
+# Getting Started LLM DeepSeek Locally
 
 Welcome to the project! Follow these simple steps to get started.
 
-- Two way to start the project:
+- There are two ways to start the project:
 - WebStorm/VSCode server
 - Python (version 3 or higher). 
 
