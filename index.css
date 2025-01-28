@@ -153,8 +153,8 @@ pre::-webkit-scrollbar-thumb:active {
 }
 
 select {
-    width: 20%;
-    padding: 10px;
+    width: 11%;
+    padding: 7px 2px;
     border: none;
     border-radius: 10px;
     background: rgba(255, 255, 255, 0.2);
