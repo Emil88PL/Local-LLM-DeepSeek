@@ -152,6 +152,9 @@ pre::-webkit-scrollbar-thumb:active {
     overflow-y: auto;
     white-space: pre-wrap;
     line-height: 1.1;
+    background-color: rgba(51, 51, 51, 0.28);
+    padding: 12px;
+    border-radius: 10px;
 }
 
 #output {
