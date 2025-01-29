@@ -1,9 +1,12 @@
-async function sendPromptToOllama(prompt, modelLlm) {
+async function sendPromptToOllama(prompt, modelLlm, temp) {
     const url = 'http://127.0.0.1:11434/api/generate';
     const data = {
         model: 'deepseek-r1:' + modelLlm,
         prompt: prompt,
         stream: false,
+        "options": {
+            "temperature": parseFloat(temp)
+        },
     };
 
     try {
@@ -48,7 +51,7 @@ document.getElementById('send').addEventListener('click', async () => {
         thinkingOverlay.style.display = 'flex';
 
         // Send the prompt and wait for the response
-        const response = await sendPromptToOllama(input, modelLlm);
+        const response = await sendPromptToOllama(input, modelLlm, slider);
 
         // Hide the thinking overlay
         thinkingOverlay.style.display = 'none';
