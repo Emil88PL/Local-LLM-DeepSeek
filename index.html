@@ -7,7 +7,7 @@
     <title>Ollama DeepSeek Chat</title>
 </head>
 <body>
-<h1>Ollama Chat</h1>
+<h1>Ollama DeepSeek Chat</h1>
 
 <!-- Think Placeholder -->
 <div id="think-placeholder" class="think-placeholder"></div>
@@ -24,12 +24,22 @@
 
 <textarea id="input" placeholder="Type your message here..."></textarea>
 
-<select name="llm" id="llm">
-    <option value="1.5b" selected>model 1.5b</option>
-    <option value="8b">model 8b</option>
-    <option value="14b">model 14b</option>
-    <option value="32b">model 32b</option>
-</select>
+<div class="llm-controls">
+    <div>
+        <label for="llm"></label><select name="llm" id="llm">
+            <option value="1.5b" selected>model 1.5b</option>
+            <option value="8b">model 8b</option>
+            <option value="14b">model 14b</option>
+            <option value="32b">model 32b</option>
+        </select>
+    </div>
+    <div>
+        <p>Creativity: <output id="creativityValue">0.8</output></p>
+        <label>
+            <input type="range" min="0" max="1.0" step="0.1" value="0.8" oninput="creativityValue.value = this.value">
+        </label>
+    </div>
+</div>
 
 <button id="send">Send</button>
 

@@ -1,6 +1,6 @@
 body {
     font-family: 'Arial', sans-serif;
-    background: linear-gradient(135deg, #1e3c72, #1a1a1a);
+    background: linear-gradient(135deg, #1e3c72, #373636);
     color: #fff;
     margin: 0;
     padding: 0 20px 0 20px;
@@ -70,7 +70,7 @@ pre {
     border-radius: 10px;
     max-height: 70%;
     overflow-y: auto;
-    font-size: 14px;
+    font-size: 16px;
     line-height: 1.5;
     white-space: pre-wrap;
     word-wrap: break-word;
@@ -145,15 +145,25 @@ pre::-webkit-scrollbar-thumb:active {
 
 /* Think Placeholder */
 .think-placeholder {
-    margin-top: 10px;
-    font-size: 16px;
+    margin-top: 5px;
+    font-size: 14px;
     color: rgba(175, 162, 162, 0.7);
     text-align: center;
 
 }
 
-select {
-    width: 11%;
+.llm-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.llm-controls select {
+    width: 100%;
     padding: 7px 2px;
     border: none;
     border-radius: 10px;
@@ -165,11 +175,11 @@ select {
     transition: background 0.3s ease;
 }
 
-select:hover {
+.llm-controls select:hover {
     background: rgba(255, 255, 255, 0.3);
 }
 
-select:focus {
+.llm-controls select:focus {
     outline: none;
     box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
 }

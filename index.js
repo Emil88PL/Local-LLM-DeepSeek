@@ -26,6 +26,14 @@ async function sendPromptToOllama(prompt, modelLlm) {
     }
 }
 
+const slider = document.querySelector('input[type="range"]');
+const sliderOutput = document.getElementById('creativityValue');
+
+slider.addEventListener('input', function() {
+    sliderOutput.textContent = this.value;
+    console.log(sliderOutput.textContent);
+});
+
 document.getElementById('send').addEventListener('click', async () => {
     const modelLlm = document.getElementById('llm').value;
     const input = document.getElementById('input').value;
@@ -33,6 +41,7 @@ document.getElementById('send').addEventListener('click', async () => {
     const thinkingOverlay = document.getElementById('thinking-overlay');
     const thinkPlaceholder = document.getElementById('think-placeholder');
     output.style.display = 'block';
+
 
     if (input) {
         // Show the thinking overlay
