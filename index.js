@@ -67,6 +67,7 @@ document.getElementById('send').addEventListener('click', async () => {
             let thinkContent = thinkMatch ? thinkMatch[1].trim() : null;
 
             if (thinkContent) {
+                thinkPlaceholder.style.display = 'block';
                 // Manual formatting for Markdown-like syntax
                 thinkContent = thinkContent
                     .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // Bold formatting
@@ -76,6 +77,7 @@ document.getElementById('send').addEventListener('click', async () => {
                 thinkPlaceholder.innerHTML = thinkContent;
             } else {
                 // No <think> tags found
+                thinkPlaceholder.style.display = 'block';
                 thinkPlaceholder.textContent = 'No thoughts to display.';
             }
 
