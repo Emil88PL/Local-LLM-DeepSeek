@@ -89,7 +89,7 @@ document.getElementById('send').addEventListener('click', async () => {
                 .replace(/###\s?(.*?)(?=\n|$)/g, '<h3>$1</h3>'); // Heading level 3 formatting
 
             // Display the rest of the response in the output div
-            output.innerHTML += `You: ${input}<br>Ollama: ${restOfResponse}<br><br>`;
+            output.innerHTML += `<span class="myInput"">You: ${input}</span><br>Ollama: ${restOfResponse}<br><br>`;
 
             // Clear input and auto-scroll output
             document.getElementById('input').value = '';

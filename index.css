@@ -206,3 +206,7 @@ option {
     background: #1e1e1e; /* Dark background for dropdown options */
     color: #fff;        /* White text for better readability */
 }
+
+.myInput {
+    color: darkgreen;
+}
