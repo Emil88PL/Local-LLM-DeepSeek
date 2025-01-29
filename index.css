@@ -27,9 +27,6 @@ h1 {
     color: #fff;
 }
 
-#output {
-    display: none;
-}
 
 textarea {
     width: 100%;
@@ -180,6 +177,10 @@ pre::-webkit-scrollbar-thumb:active {
     height: auto;
     overflow-y: auto;
     /* Rest of the styling from your pre element will apply since #output is a pre */
+}
+
+#output {
+    display: none;
 }
 
 .llm-controls {
