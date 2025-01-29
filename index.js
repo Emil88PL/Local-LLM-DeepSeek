@@ -45,7 +45,6 @@ document.getElementById('send').addEventListener('click', async () => {
     const thinkPlaceholder = document.getElementById('think-placeholder');
     output.style.display = 'block';
 
-
     if (input) {
         // Show the thinking overlay
         thinkingOverlay.style.display = 'flex';
@@ -65,21 +64,32 @@ document.getElementById('send').addEventListener('click', async () => {
             const thinkMatch = decodedResponse.match(thinkRegex);
 
             // Extract <think> content if it exists
-            const thinkContent = thinkMatch ? thinkMatch[1].trim() : null;
+            let thinkContent = thinkMatch ? thinkMatch[1].trim() : null;
 
             if (thinkContent) {
+                // Manual formatting for Markdown-like syntax
+                thinkContent = thinkContent
+                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // Bold formatting
+                    .replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>') // Code block formatting
+                    .replace(/###\s?(.*?)(?=\n|$)/g, '<h3>$1</h3>'); // Heading level 3 formatting
                 // Display <think> content in the think-placeholder div
-                thinkPlaceholder.textContent = thinkContent;
+                thinkPlaceholder.innerHTML = thinkContent;
             } else {
                 // No <think> tags found
                 thinkPlaceholder.textContent = 'No thoughts to display.';
             }
 
             // Remove <think> tags and their content from the response for the main output
-            const restOfResponse = decodedResponse.replace(thinkRegex, '').trim();
+            let restOfResponse = decodedResponse.replace(thinkRegex, '').trim();
+
+            // Manual formatting for Markdown-like syntax in the main response
+            restOfResponse = restOfResponse
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>')
+                .replace(/###\s?(.*?)(?=\n|$)/g, '<h3>$1</h3>'); // Heading level 3 formatting
 
             // Display the rest of the response in the output div
-            output.textContent += `You: ${input}\nOllama: ${restOfResponse}\n\n`;
+            output.innerHTML += `You: ${input}<br>Ollama: ${restOfResponse}<br><br>`;
 
             // Clear input and auto-scroll output
             document.getElementById('input').value = '';

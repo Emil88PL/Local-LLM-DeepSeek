@@ -146,11 +146,12 @@ pre::-webkit-scrollbar-thumb:active {
 }
 
 .think-placeholder {
-    margin-top: 5px;
     font-size: 14px;
     color: rgba(175, 162, 162, 0.7);
     max-height: 300px;
     overflow-y: auto;
+    white-space: pre-wrap;
+    line-height: 1.1;
 }
 
 #output {
