@@ -216,3 +216,7 @@ option {
 #send {
     margin-bottom: 40px;
 }
+
+.creativityDiv input {
+    cursor: pointer;
+}
