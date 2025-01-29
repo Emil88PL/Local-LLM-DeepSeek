@@ -143,13 +143,43 @@ pre::-webkit-scrollbar-thumb:active {
     }
 }
 
-/* Think Placeholder */
 .think-placeholder {
     margin-top: 5px;
     font-size: 14px;
     color: rgba(175, 162, 162, 0.7);
-    text-align: center;
+    max-height: 300px;
+    overflow-y: auto;
+    /* Adding scrollbar styling consistent with your design */
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.3) rgba(255, 255, 255, 0.1);
+}
 
+.think-placeholder::-webkit-scrollbar {
+    width: 8px;
+}
+
+.think-placeholder::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+.think-placeholder::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+}
+
+.think-placeholder::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
+    cursor: grab;
+}
+
+#output {
+    display: block; /* Changed from 'none' to make it visible */
+    min-height: 200px;
+    max-height: 800px;
+    height: auto;
+    overflow-y: auto;
+    /* Rest of the styling from your pre element will apply since #output is a pre */
 }
 
 .llm-controls {
