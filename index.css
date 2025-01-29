@@ -212,3 +212,7 @@ option {
 .myInput {
     color: darkgreen;
 }
+
+#send {
+    margin-bottom: 40px;
+}
