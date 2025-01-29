@@ -73,29 +73,34 @@ pre {
     word-wrap: break-word;
 }
 
+.think-placeholder::-webkit-scrollbar,
 textarea::-webkit-scrollbar,
 pre::-webkit-scrollbar {
     width: 8px;
 }
 
+.think-placeholder::-webkit-scrollbar-track,
 textarea::-webkit-scrollbar-track,
 pre::-webkit-scrollbar-track {
     background: rgba(255, 255, 255, 0.1);
     border-radius: 10px;
 }
 
+.think-placeholder::-webkit-scrollbar-thumb,
 textarea::-webkit-scrollbar-thumb,
 pre::-webkit-scrollbar-thumb {
     background: rgba(255, 255, 255, 0.3);
     border-radius: 10px;
 }
 
+.think-placeholder::-webkit-scrollbar-thumb:hover,
 textarea::-webkit-scrollbar-thumb:hover,
 pre::-webkit-scrollbar-thumb:hover {
     background: rgba(255, 255, 255, 0.5);
     cursor: grab;
 }
 
+.think-placeholder::-webkit-scrollbar-thumb:active,
 textarea::-webkit-scrollbar-thumb:active,
 pre::-webkit-scrollbar-thumb:active {
     cursor: grabbing;
@@ -146,28 +151,6 @@ pre::-webkit-scrollbar-thumb:active {
     color: rgba(175, 162, 162, 0.7);
     max-height: 300px;
     overflow-y: auto;
-    /* Adding scrollbar styling consistent with your design */
-    scrollbar-width: thin;
-    scrollbar-color: rgba(255, 255, 255, 0.3) rgba(255, 255, 255, 0.1);
-}
-
-.think-placeholder::-webkit-scrollbar {
-    width: 8px;
-}
-
-.think-placeholder::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-}
-
-.think-placeholder::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 10px;
-}
-
-.think-placeholder::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.5);
-    cursor: grab;
 }
 
 #output {
