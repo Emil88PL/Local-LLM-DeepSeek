@@ -220,3 +220,15 @@ option {
 .creativityDiv input {
     cursor: pointer;
 }
+
+#initialsDate {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px;
+    background: rgba(119, 116, 116, 0.7);
+    color: white;
+    font-size: 12px;
+    font-family: Arial, sans-serif;
+    border-bottom-right-radius: 8px;
+}

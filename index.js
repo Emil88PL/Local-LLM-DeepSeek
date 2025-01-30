@@ -134,3 +134,8 @@ document.getElementById('send').addEventListener('click', async () => {
         }
     }
 });
+
+const initials = "© Emil";
+const currentDate = new Date().toLocaleDateString();
+
+document.getElementById('initialsDate').textContent = `${initials} | ${currentDate}`;
