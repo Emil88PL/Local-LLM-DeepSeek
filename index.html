@@ -26,12 +26,17 @@
 
 <div class="llm-controls">
     <div>
-        <label for="llm"></label><select name="llm" id="llm">
-            <option value="1.5b" selected>model 1.5b</option>
-            <option value="8b">model 8b</option>
-            <option value="14b">model 14b</option>
-            <option value="32b">model 32b</option>
-        </select>
+        <div>
+            <label for="llm"></label><select name="llm" id="llm">
+                <option value="1.5b" selected>model 1.5b</option>
+                <option value="8b">model 8b</option>
+                <option value="14b">model 14b</option>
+                <option value="32b">model 32b</option>
+            </select>
+        </div>
+        <div>
+            <button id="runButton" title="Load the model to the memory for quicker first response">run</button>
+        </div>
     </div>
     <div class="creativityDiv">
         <p>Creativity: <output id="creativityValue">0.8</output></p>
