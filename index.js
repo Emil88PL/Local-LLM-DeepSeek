@@ -1,5 +1,7 @@
+const URL = 'http://127.0.0.1:11434/api/generate';
+
 async function sendPromptToOllama(prompt, modelLlm, temp) {
-    const url = 'http://127.0.0.1:11434/api/generate';
+    const url = URL;
     const data = {
         model: 'deepseek-r1:' + modelLlm,
         prompt: prompt,
@@ -36,6 +38,35 @@ slider.addEventListener('input', function() {
     sliderOutput.textContent = this.value;
     console.log(sliderOutput.textContent);
 });
+
+const runButton = document.getElementById('runButton');
+const modelLlm = document.getElementById('llm').value;
+runButton.addEventListener('click', async function() {
+    const url = URL;
+    const data = {
+        model: 'deepseek-r1:' + modelLlm,
+        prompt: '',
+        stream: false,
+    };
+
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
+
+        if (response.ok) {
+            console.log('Model loaded successfully');
+        } else {
+            console.error('Failed to load model');
+        }
+    } catch (error) {
+        console.error('Error loading model:', error);
+    }
+})
 
 document.getElementById('send').addEventListener('click', async () => {
     const modelLlm = document.getElementById('llm').value;
