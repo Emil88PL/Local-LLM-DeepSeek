@@ -40,8 +40,8 @@ slider.addEventListener('input', function() {
 });
 
 const runButton = document.getElementById('runButton');
-const modelLlm = document.getElementById('llm').value;
 runButton.addEventListener('click', async function() {
+    const modelLlm = document.getElementById('llm').value;
     const url = URL;
     const data = {
         model: 'deepseek-r1:' + modelLlm,
@@ -59,7 +59,7 @@ runButton.addEventListener('click', async function() {
         });
 
         if (response.ok) {
-            console.log('Model loaded successfully');
+            console.log('Model loaded successfully ' + modelLlm);
         } else {
             console.error('Failed to load model');
         }
@@ -130,6 +130,7 @@ document.getElementById('send').addEventListener('click', async () => {
 
             console.log('Decoded Response:', decodedResponse); // For debugging
             console.log('Extracted <think> Content:', thinkContent); // For debugging
+            console.log('Model: ' + modelLlm);
         }
     }
 });
