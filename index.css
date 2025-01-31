@@ -305,7 +305,7 @@ option {
 }
 
 .previousChatDiv h3, p {
-    padding-left: 12px;
+    padding-left: 21px;
 }
 
 .previousChatDiv.collapsed {
@@ -340,7 +340,7 @@ option {
     position: absolute;
     cursor: pointer;
     bottom: 14px;
-    right: -470px;
+    right: -466px;
     font-size: 20px;
     color: #555;
     z-index: 10;
