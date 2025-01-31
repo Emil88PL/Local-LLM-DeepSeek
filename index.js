@@ -61,6 +61,7 @@ runButton.addEventListener('click', async function() {
         if (response.ok) {
             console.log('Model loaded successfully ' + modelLlm);
             runButton.style.background = '#4CAF50';
+            runButton.setAttribute('data-tooltip', 'Model Loaded');
         } else {
             console.error('Failed to load model');
             runButton.style.background = '#DC143C';
@@ -68,7 +69,7 @@ runButton.addEventListener('click', async function() {
     } catch (error) {
         console.error('Error loading model:', error);
         runButton.style.background = '#DC143C';
-        runButton.setAttribute('data-tooltip', 'Make sure you running Ollama server')
+        runButton.setAttribute('data-tooltip', 'Make sure you running Ollama server');
     }
 })
 
