@@ -230,6 +230,10 @@ option {
     margin-bottom: 40px;
 }
 
+#send:active {
+    background: rgba(76, 175, 80, 0.58);
+}
+
 .creativityDiv input {
     cursor: pointer;
 }
