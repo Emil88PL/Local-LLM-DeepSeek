@@ -146,6 +146,7 @@ document.getElementById('send').addEventListener('click', async () => {
             console.log('Decoded Response:', decodedResponse); // For debugging
             console.log('Extracted <think> Content:', thinkContent); // For debugging
             console.log('Model: ' + modelLlm);
+            localStorage.setItem('DeepSeek ', JSON.stringify(restOfResponse));
         }
     } else {
         sendButton.style.background = '#DC143C';
@@ -158,3 +159,23 @@ const initials = "© Emil";
 const currentDate = new Date().toLocaleDateString();
 
 document.getElementById('initialsDate').textContent = `${initials} | ${currentDate}`;
+
+document.addEventListener('DOMContentLoaded', () => {
+    const previousChatDiv = document.querySelector('.previousChatDiv');
+
+    // Create toggle button
+    const toggleBtn = document.createElement('div');
+    toggleBtn.classList.add('toggle-btn');
+    toggleBtn.textContent = '►';
+    previousChatDiv.appendChild(toggleBtn);
+
+    // Toggle functionality
+    toggleBtn.addEventListener('click', () => {
+        previousChatDiv.classList.toggle('collapsed');
+        toggleBtn.textContent = previousChatDiv.classList.contains('collapsed') ? '◄' : '►';
+    });
+});
+
+const previousChatP = document.getElementById('previousChatP');
+const savedLocalChat = JSON.parse(localStorage.getItem('DeepSeek'));
+previousChatP.innerText = savedLocalChat;

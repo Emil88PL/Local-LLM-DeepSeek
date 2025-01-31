@@ -279,3 +279,37 @@ option {
 .custom-tooltip:hover::after {
     opacity: 1;
 }
+
+.previousChatDiv {
+    position: fixed;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 200px;
+    background-color: rgba(240, 240, 240, 0.11);
+    overflow: hidden;
+    transition: width 0.3s ease;
+}
+
+.previousChatDiv h3, p {
+    padding: 12px;
+}
+
+.previousChatDiv.collapsed {
+    width: 10px;
+    cursor: pointer;
+}
+
+.previousChatDiv .toggle-btn {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: rotate(180deg) translateX(-5%);
+    background-color: #4CAF50;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.previousChatDiv .toggle-btn:active {
+    background: rgba(76, 175, 80, 0.58);
+}
