@@ -98,10 +98,7 @@ document.getElementById('send').addEventListener('click', async () => {
         thinkingOverlay.style.display = 'none';
 
         if (response) {
-            // Decode HTML-encoded characters (\u003c -> <, \u003e -> >)
             const decodedResponse = response.replace(/\\u003c/g, '<').replace(/\\u003e/g, '>');
-
-            // Extract <think> content if it exists
             const thinkRegex = /<think>([\s\S]*?)<\/think>/;
             const thinkMatch = decodedResponse.match(thinkRegex);
             let thinkContent = thinkMatch ? thinkMatch[1].trim() : null;
@@ -141,15 +138,11 @@ document.getElementById('send').addEventListener('click', async () => {
                 savedChats = [];
             }
 
-            // Save chat to localStorage
             const currentTime = new Date().toLocaleString();
             savedChats.push({ timestamp: currentTime, message: restOfResponse });
             localStorage.setItem('DeepSeek', JSON.stringify(savedChats));
 
-            // Refresh chat list
             displayChatList();
-            console.log('Decoded Response:', decodedResponse); // For debugging
-            console.log('Extracted <think> Content:', thinkContent); // For debugging
         }
     } else {
         sendButton.style.background = '#DC143C';
@@ -158,11 +151,15 @@ document.getElementById('send').addEventListener('click', async () => {
     }
 });
 
-// Function to display list of previous chats
 function displayChatList() {
     const previousChatP = document.getElementById('previousChatP');
     previousChatP.innerHTML = ''; // Clear previous list
     const savedChats = JSON.parse(localStorage.getItem('DeepSeek')) || [];
+
+    if (savedChats.length === 0) {
+        previousChatP.innerHTML = '<p>No previous chats available.</p>';
+        return;
+    }
 
     savedChats.forEach(chat => {
         const chatItem = document.createElement('p');
@@ -170,7 +167,6 @@ function displayChatList() {
         chatItem.style.cursor = 'pointer';
         chatItem.classList.add('chat-timestamp');
 
-        // Show full chat when clicked
         chatItem.addEventListener('click', () => {
             document.getElementById('output').innerHTML = `<pre>${chat.message}</pre>`;
         });
@@ -179,19 +175,21 @@ function displayChatList() {
     });
 }
 
-// Load initial chat list on page load
-document.addEventListener('DOMContentLoaded', displayChatList);
+// Display initials and date
+const initials = "© Emil";
+const currentDate = new Date().toLocaleDateString();
+document.getElementById('initialsDate').textContent = `${initials} | ${currentDate}`;
 
+// Toggle button setup for the chat history
 document.addEventListener('DOMContentLoaded', () => {
-    const previousChatDiv = document.querySelector('.previousChatDiv');
+    displayChatList(); // Render chat list on page load
 
-    // Create toggle button
+    const previousChatDiv = document.querySelector('.previousChatDiv');
     const toggleBtn = document.createElement('div');
     toggleBtn.classList.add('toggle-btn');
     toggleBtn.textContent = '►';
     previousChatDiv.appendChild(toggleBtn);
 
-    // Toggle functionality
     toggleBtn.addEventListener('click', () => {
         previousChatDiv.classList.toggle('collapsed');
         toggleBtn.textContent = previousChatDiv.classList.contains('collapsed') ? '◄' : '►';
