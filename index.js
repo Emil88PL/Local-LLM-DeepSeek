@@ -168,7 +168,7 @@ function displayChatList() {
         chatItem.classList.add('chat-timestamp');
 
         chatItem.addEventListener('click', () => {
-            document.getElementById('output').innerHTML = `<pre>${chat.message}</pre>`;
+            document.getElementById('input').innerHTML = `<div>${chat.message}</div>`;
         });
 
         previousChatP.appendChild(chatItem);
