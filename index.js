@@ -48,7 +48,10 @@ slider.addEventListener('input', function() {
 });
 
 const runButton = document.getElementById('runButton');
+let isFetching = false;
+
 runButton.addEventListener('click', async function() {
+    isFetching = true;
     const modelLlm = document.getElementById('llm').value;
     const url = URL;
     const data = {
@@ -58,6 +61,10 @@ runButton.addEventListener('click', async function() {
     };
 
     try {
+        runButton.classList.add('loading');
+        runButton.style.background = '#FFFFFF33';
+        runButton.innerText = 'Loading...';
+
         const response = await fetch(url, {
             method: 'POST',
             headers: {
@@ -67,22 +74,25 @@ runButton.addEventListener('click', async function() {
         });
 
         if (response.ok) {
-            console.log('Model loaded successfully ' + modelLlm);
+            runButton.classList.remove('loading');
             runButton.style.background = '#4CAF50';
             runButton.setAttribute('data-tooltip', 'Model Loaded');
             runButton.innerText = 'Model Loaded';
         } else {
-            console.error('Failed to load model');
+            runButton.classList.remove('loading');
             runButton.style.background = '#DC143C';
+            runButton.setAttribute('data-tooltip', 'Error loading');
             runButton.innerText = 'Error loading';
         }
     } catch (error) {
-        console.error('Error loading model:', error);
+        runButton.classList.remove('loading');
         runButton.style.background = '#DC143C';
         runButton.setAttribute('data-tooltip', 'Make sure you are running Ollama server');
         runButton.innerText = 'Error loading';
     }
-})
+
+    isFetching = false;
+});
 
 document.getElementById('send').addEventListener('click', async () => {
     const modelLlm = document.getElementById('llm').value;
