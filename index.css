@@ -90,12 +90,14 @@ pre {
     word-wrap: break-word;
 }
 
+.previousChatDiv::-webkit-scrollbar,
 .think-placeholder::-webkit-scrollbar,
 textarea::-webkit-scrollbar,
 pre::-webkit-scrollbar {
     width: 8px;
 }
 
+.previousChatDiv::-webkit-scrollbar-track,
 .think-placeholder::-webkit-scrollbar-track,
 textarea::-webkit-scrollbar-track,
 pre::-webkit-scrollbar-track {
@@ -103,6 +105,7 @@ pre::-webkit-scrollbar-track {
     border-radius: 10px;
 }
 
+.previousChatDiv::-webkit-scrollbar-thumb,
 .think-placeholder::-webkit-scrollbar-thumb,
 textarea::-webkit-scrollbar-thumb,
 pre::-webkit-scrollbar-thumb {
@@ -110,6 +113,7 @@ pre::-webkit-scrollbar-thumb {
     border-radius: 10px;
 }
 
+.previousChatDiv::-webkit-scrollbar-thumb:hover,
 .think-placeholder::-webkit-scrollbar-thumb:hover,
 textarea::-webkit-scrollbar-thumb:hover,
 pre::-webkit-scrollbar-thumb:hover {
@@ -117,6 +121,7 @@ pre::-webkit-scrollbar-thumb:hover {
     cursor: grab;
 }
 
+.previousChatDiv::-webkit-scrollbar-thumb:active,
 .think-placeholder::-webkit-scrollbar-thumb:active,
 textarea::-webkit-scrollbar-thumb:active,
 pre::-webkit-scrollbar-thumb:active {
@@ -346,3 +351,17 @@ option {
     color: #000;
     transform: scale(1.2);
 }
+
+.previousChatDiv {
+    height: 100%;
+    overflow-y: auto;
+}
+
+.chat-item-container {
+    margin-bottom: 10px;
+}
+
+.previousChatDiv.collapsed {
+    overflow: hidden;
+}
+
