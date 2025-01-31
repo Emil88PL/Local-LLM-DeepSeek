@@ -46,6 +46,7 @@ textarea::placeholder {
     color: rgba(255, 255, 255, 0.7);
 }
 
+.broom,
 #runButton,
 #send{
     width: 100%;
@@ -59,10 +60,12 @@ textarea::placeholder {
     transition: background 0.3s ease;
 }
 
+.broom,
 #runButton {
     background: rgba(255, 255, 255, 0.2);
 }
 
+.broom,
 #runButton:hover {
     background: rgba(255, 255, 255, 0.3);
 }
@@ -317,4 +320,29 @@ option {
 .chat-item-container {
     display: flex;
     align-items: center;
+}
+
+.broomDiv {
+    position: relative;
+}
+
+.broom {
+    position: absolute;
+    cursor: pointer;
+    bottom: 14px;
+    right: -470px;
+    font-size: 20px;
+    color: #555;
+    z-index: 10;
+}
+
+.broomDiv {
+    position: relative;
+    display: inline-block;
+}
+
+/* Broom hover effect */
+.broom:hover {
+    color: #000;
+    transform: scale(1.2);
 }

@@ -215,6 +215,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     toggleBtn.addEventListener('click', () => {
         previousChatDiv.classList.toggle('collapsed');
-        toggleBtn.textContent = previousChatDiv.classList.contains('collapsed') ? '◄' : '►';
+        toggleBtn.textContent = previousChatDiv.classList.contains('collapsed') ? '►' : '◄';
     });
+});
+
+
+// Clear the textarea when the broom icon is clicked
+document.querySelector('.broom').addEventListener('click', () => {
+    document.getElementById('input').value = '';
 });
