@@ -63,11 +63,11 @@ runButton.addEventListener('click', async function() {
             runButton.style.background = '#4CAF50';
         } else {
             console.error('Failed to load model');
-            runButton.style.background = '#e80a0a';
+            runButton.style.background = '#DC143C';
         }
     } catch (error) {
         console.error('Error loading model:', error);
-        runButton.style.background = '#e80a0a';
+        runButton.style.background = '#DC143C';
     }
 })
 
