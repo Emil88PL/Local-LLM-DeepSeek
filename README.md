@@ -35,9 +35,13 @@ ollama pull deepseek-r1:14b
 
 
 
-### 3. Copy repository
+### 3. Copy repository with git
 ```bash
-https://github.com/Emil88PL/Local-LLM-DeepSeek.git
+git clone https://github.com/Emil88PL/Local-LLM-DeepSeek.git
+```
+###### or download zip file
+```bash
+https://github.com/Emil88PL/Local-LLM-DeepSeek/archive/refs/heads/main.zip
 ```
 
 
