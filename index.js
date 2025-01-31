@@ -1,5 +1,5 @@
 const URL = 'http://127.0.0.1:11434/api/generate';
-
+const sendButton = document.getElementById('send');
 async function sendPromptToOllama(prompt, modelLlm, temp) {
     const url = URL;
     const data = {
@@ -19,7 +19,9 @@ async function sendPromptToOllama(prompt, modelLlm, temp) {
             },
             body: JSON.stringify(data),
         });
-
+        sendButton.style.background = '#4CAF50';
+        sendButton.removeAttribute('data-tooltip');
+        sendButton.classList.remove('custom-tooltip');
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
@@ -28,6 +30,9 @@ async function sendPromptToOllama(prompt, modelLlm, temp) {
         return result.response;
     } catch (error) {
         console.error('Error sending prompt to Ollama:', error);
+        sendButton.style.background = '#DC143C';
+        sendButton.setAttribute('data-tooltip', 'Make sure you are running Ollama server');
+        sendButton.classList.add('custom-tooltip');
     }
 }
 
@@ -71,7 +76,7 @@ runButton.addEventListener('click', async function() {
     } catch (error) {
         console.error('Error loading model:', error);
         runButton.style.background = '#DC143C';
-        runButton.setAttribute('data-tooltip', 'Make sure you running Ollama server');
+        runButton.setAttribute('data-tooltip', 'Make sure you are running Ollama server');
         runButton.innerText = 'Error loading';
     }
 })
@@ -82,6 +87,7 @@ document.getElementById('send').addEventListener('click', async () => {
     const output = document.getElementById('output');
     const thinkingOverlay = document.getElementById('thinking-overlay');
     const thinkPlaceholder = document.getElementById('think-placeholder');
+    const sendButton = document.getElementById('send');
 
     if (input) {
         // Show the thinking overlay
@@ -141,6 +147,10 @@ document.getElementById('send').addEventListener('click', async () => {
             console.log('Extracted <think> Content:', thinkContent); // For debugging
             console.log('Model: ' + modelLlm);
         }
+    } else {
+        sendButton.style.background = '#DC143C';
+        sendButton.setAttribute('data-tooltip', 'Type the message first');
+        sendButton.classList.add('custom-tooltip');
     }
 });
 
