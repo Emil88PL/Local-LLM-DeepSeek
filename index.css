@@ -46,7 +46,8 @@ textarea::placeholder {
     color: rgba(255, 255, 255, 0.7);
 }
 
-button {
+#runButton,
+#send{
     width: 100%;
     padding: 10px;
     border: none;
@@ -56,6 +57,10 @@ button {
     font-size: 16px;
     cursor: pointer;
     transition: background 0.3s ease;
+}
+
+#runButton {
+    background: #9eaa9e;
 }
 
 button:hover {

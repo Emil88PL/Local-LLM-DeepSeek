@@ -60,11 +60,14 @@ runButton.addEventListener('click', async function() {
 
         if (response.ok) {
             console.log('Model loaded successfully ' + modelLlm);
+            runButton.style.background = '#4CAF50';
         } else {
             console.error('Failed to load model');
+            runButton.style.background = '#e80a0a';
         }
     } catch (error) {
         console.error('Error loading model:', error);
+        runButton.style.background = '#e80a0a';
     }
 })
 
