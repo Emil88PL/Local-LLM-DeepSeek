@@ -22,6 +22,9 @@ async function sendPromptToOllama(prompt, modelLlm, temp) {
         sendButton.style.background = '#4CAF50';
         sendButton.removeAttribute('data-tooltip');
         sendButton.classList.remove('custom-tooltip');
+        runButton.setAttribute('data-tooltip', 'Model Loaded');
+        runButton.style.background = '#4CAF50';
+        runButton.innerText = 'Model Loaded';
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
