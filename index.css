@@ -234,6 +234,10 @@ option {
     cursor: pointer;
 }
 
+.creativityDiv p {
+    cursor: default;
+}
+
 #initialsDate {
     position: absolute;
     top: 0;

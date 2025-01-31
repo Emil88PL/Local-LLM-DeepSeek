@@ -39,7 +39,7 @@
             <button id="runButton" class="custom-tooltip" data-tooltip="(Optional) Load the model to the memory for quicker first response">Load model</button>
         </div>
     </div>
-    <div class="creativityDiv">
+    <div class="creativityDiv custom-tooltip"  data-tooltip="The temperature of the model. Increasing the temperature will make the model answer more creatively. (Default: 0.8)">
         <p>Creativity: <output id="creativityValue">0.8</output></p>
         <label>
             <input type="range" min="0" max="1.0" step="0.1" value="0.8" oninput="creativityValue.value = this.value">
