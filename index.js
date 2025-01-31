@@ -161,19 +161,42 @@ function displayChatList() {
         return;
     }
 
-    savedChats.forEach(chat => {
+    savedChats.forEach((chat, index) => {
+        const chatItemContainer = document.createElement('div');
+        chatItemContainer.classList.add('chat-item-container');
+
         const chatItem = document.createElement('p');
         chatItem.textContent = chat.timestamp;
         chatItem.style.cursor = 'pointer';
         chatItem.classList.add('chat-timestamp');
 
+        // Show full chat when clicked
         chatItem.addEventListener('click', () => {
-            document.getElementById('input').innerHTML = `<div>${chat.message}</div>`;
+            document.getElementById('input').innerHTML = `<pre>${chat.message}</pre>`;
         });
 
-        previousChatP.appendChild(chatItem);
+        // Create delete icon
+        const deleteIcon = document.createElement('span');
+        deleteIcon.textContent = '🗑️';
+        deleteIcon.style.cursor = 'pointer';
+        deleteIcon.style.marginLeft = '10px';
+        deleteIcon.title = 'Delete chat';
+
+        // Delete functionality
+        deleteIcon.addEventListener('click', () => {
+            savedChats.splice(index, 1);
+            localStorage.setItem('DeepSeek', JSON.stringify(savedChats));
+            document.getElementById('input').value = '';
+            displayChatList();
+        });
+
+        // Append chat item and delete icon
+        chatItemContainer.appendChild(chatItem);
+        chatItemContainer.appendChild(deleteIcon);
+        previousChatP.appendChild(chatItemContainer);
     });
 }
+
 
 // Display initials and date
 const initials = "© Emil";

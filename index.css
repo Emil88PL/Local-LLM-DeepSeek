@@ -285,14 +285,14 @@ option {
     right: 0;
     top: 0;
     bottom: 0;
-    width: 200px;
+    width: 260px;
     background-color: rgba(240, 240, 240, 0.11);
     overflow: hidden;
     transition: width 0.3s ease;
 }
 
 .previousChatDiv h3, p {
-    padding: 12px;
+    padding-left: 12px;
 }
 
 .previousChatDiv.collapsed {
@@ -312,4 +312,9 @@ option {
 
 .previousChatDiv .toggle-btn:active {
     background: rgba(76, 175, 80, 0.58);
+}
+
+.chat-item-container {
+    display: flex;
+    align-items: center;
 }
