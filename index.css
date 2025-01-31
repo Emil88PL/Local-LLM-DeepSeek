@@ -173,7 +173,7 @@ pre::-webkit-scrollbar-thumb:active {
 }
 
 #output {
-    display: block; /* Changed from 'none' to make it visible */
+
     min-height: 200px;
     max-height: 800px;
     height: auto;

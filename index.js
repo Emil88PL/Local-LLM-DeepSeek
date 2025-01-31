@@ -62,14 +62,17 @@ runButton.addEventListener('click', async function() {
             console.log('Model loaded successfully ' + modelLlm);
             runButton.style.background = '#4CAF50';
             runButton.setAttribute('data-tooltip', 'Model Loaded');
+            runButton.innerText = 'Model Loaded';
         } else {
             console.error('Failed to load model');
             runButton.style.background = '#DC143C';
+            runButton.innerText = 'Error loading';
         }
     } catch (error) {
         console.error('Error loading model:', error);
         runButton.style.background = '#DC143C';
         runButton.setAttribute('data-tooltip', 'Make sure you running Ollama server');
+        runButton.innerText = 'Error loading';
     }
 })
 
@@ -79,7 +82,6 @@ document.getElementById('send').addEventListener('click', async () => {
     const output = document.getElementById('output');
     const thinkingOverlay = document.getElementById('thinking-overlay');
     const thinkPlaceholder = document.getElementById('think-placeholder');
-    output.style.display = 'block';
 
     if (input) {
         // Show the thinking overlay
@@ -103,7 +105,9 @@ document.getElementById('send').addEventListener('click', async () => {
             let thinkContent = thinkMatch ? thinkMatch[1].trim() : null;
 
             if (thinkContent) {
+                output.style.display = 'block';
                 thinkPlaceholder.style.display = 'block';
+
                 // Manual formatting for Markdown-like syntax
                 thinkContent = thinkContent
                     .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // Bold formatting
@@ -112,8 +116,8 @@ document.getElementById('send').addEventListener('click', async () => {
                 // Display <think> content in the think-placeholder div
                 thinkPlaceholder.innerHTML = thinkContent;
             } else {
-                // No <think> tags found
                 thinkPlaceholder.style.display = 'block';
+                output.style.display = 'block';
                 thinkPlaceholder.textContent = 'No thoughts to display.';
             }
 
