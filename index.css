@@ -178,10 +178,11 @@ pre::-webkit-scrollbar-thumb:active {
     padding: 12px;
     border-radius: 10px;
     display: none;
+    width: 100%;
 }
 
 #output {
-
+    width: 100%;
     min-height: 200px;
     max-height: 800px;
     height: auto;
@@ -244,6 +245,10 @@ option {
 
 .creativityDiv input {
     cursor: pointer;
+}
+
+#input {
+    width: 100%;
 }
 
 .creativityDiv p {

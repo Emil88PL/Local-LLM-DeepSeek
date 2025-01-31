@@ -175,7 +175,9 @@ function displayChatList() {
 
         // Show full chat when clicked
         chatItem.addEventListener('click', () => {
-            document.getElementById('input').innerHTML = `<pre>${chat.message}</pre>`;
+            const inputField = document.getElementById('input');
+            // Set the value instead of innerHTML
+            inputField.value = chat.message;
         });
 
         // Create delete icon
@@ -226,4 +228,5 @@ document.addEventListener('DOMContentLoaded', () => {
 // Clear the textarea when the broom icon is clicked
 document.querySelector('.broom').addEventListener('click', () => {
     document.getElementById('input').value = '';
+    displayChatList();
 });
