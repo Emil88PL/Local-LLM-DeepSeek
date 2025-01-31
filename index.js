@@ -90,36 +90,29 @@ document.getElementById('send').addEventListener('click', async () => {
     const sendButton = document.getElementById('send');
 
     if (input) {
-        // Show the thinking overlay
         thinkingOverlay.style.display = 'flex';
 
-        // Send the prompt and wait for the response
+        // Simulated response for demo (replace with your real response)
         const response = await sendPromptToOllama(input, modelLlm, slider);
 
-        // Hide the thinking overlay
         thinkingOverlay.style.display = 'none';
 
         if (response) {
-            // Decode HTML-encoded characters (\u003c -> <, \u003e -> >, etc.)
+            // Decode HTML-encoded characters (\u003c -> <, \u003e -> >)
             const decodedResponse = response.replace(/\\u003c/g, '<').replace(/\\u003e/g, '>');
 
-            // Use regex to find <think> tags and their content
+            // Extract <think> content if it exists
             const thinkRegex = /<think>([\s\S]*?)<\/think>/;
             const thinkMatch = decodedResponse.match(thinkRegex);
-
-            // Extract <think> content if it exists
             let thinkContent = thinkMatch ? thinkMatch[1].trim() : null;
 
             if (thinkContent) {
                 output.style.display = 'block';
                 thinkPlaceholder.style.display = 'block';
-
-                // Manual formatting for Markdown-like syntax
                 thinkContent = thinkContent
-                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // Bold formatting
-                    .replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>') // Code block formatting
-                    .replace(/###\s?(.*?)(?=\n|$)/g, '<h3>$1</h3>'); // Heading level 3 formatting
-                // Display <think> content in the think-placeholder div
+                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                    .replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>')
+                    .replace(/###\s?(.*?)(?=\n|$)/g, '<h3>$1</h3>');
                 thinkPlaceholder.innerHTML = thinkContent;
             } else {
                 thinkPlaceholder.style.display = 'block';
@@ -127,26 +120,36 @@ document.getElementById('send').addEventListener('click', async () => {
                 thinkPlaceholder.textContent = 'No thoughts to display.';
             }
 
-            // Remove <think> tags and their content from the response for the main output
             let restOfResponse = decodedResponse.replace(thinkRegex, '').trim();
 
-            // Manual formatting for Markdown-like syntax in the main response
             restOfResponse = restOfResponse
                 .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
                 .replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>')
-                .replace(/###\s?(.*?)(?=\n|$)/g, '<h3>$1</h3>'); // Heading level 3 formatting
+                .replace(/###\s?(.*?)(?=\n|$)/g, '<h3>$1</h3>');
 
-            // Display the rest of the response in the output div
-            output.innerHTML += `<span class="myInput"">You: ${input}</span><br>Ollama: ${restOfResponse}<br><br>`;
-
-            // Clear input and auto-scroll output
+            // Display chat in output
+            output.innerHTML += `<span class="myInput">You: ${input}</span><br>Ollama: ${restOfResponse}<br><br>`;
             document.getElementById('input').value = '';
-            output.scrollTop = output.scrollHeight;
 
+            // Ensure localStorage data is an array
+            let savedChats = [];
+            try {
+                savedChats = JSON.parse(localStorage.getItem('DeepSeek')) || [];
+                if (!Array.isArray(savedChats)) savedChats = [];
+            } catch (e) {
+                console.error('Error parsing localStorage:', e);
+                savedChats = [];
+            }
+
+            // Save chat to localStorage
+            const currentTime = new Date().toLocaleString();
+            savedChats.push({ timestamp: currentTime, message: restOfResponse });
+            localStorage.setItem('DeepSeek', JSON.stringify(savedChats));
+
+            // Refresh chat list
+            displayChatList();
             console.log('Decoded Response:', decodedResponse); // For debugging
             console.log('Extracted <think> Content:', thinkContent); // For debugging
-            console.log('Model: ' + modelLlm);
-            localStorage.setItem('DeepSeek ', JSON.stringify(restOfResponse));
         }
     } else {
         sendButton.style.background = '#DC143C';
@@ -155,10 +158,29 @@ document.getElementById('send').addEventListener('click', async () => {
     }
 });
 
-const initials = "© Emil";
-const currentDate = new Date().toLocaleDateString();
+// Function to display list of previous chats
+function displayChatList() {
+    const previousChatP = document.getElementById('previousChatP');
+    previousChatP.innerHTML = ''; // Clear previous list
+    const savedChats = JSON.parse(localStorage.getItem('DeepSeek')) || [];
 
-document.getElementById('initialsDate').textContent = `${initials} | ${currentDate}`;
+    savedChats.forEach(chat => {
+        const chatItem = document.createElement('p');
+        chatItem.textContent = chat.timestamp;
+        chatItem.style.cursor = 'pointer';
+        chatItem.classList.add('chat-timestamp');
+
+        // Show full chat when clicked
+        chatItem.addEventListener('click', () => {
+            document.getElementById('output').innerHTML = `<pre>${chat.message}</pre>`;
+        });
+
+        previousChatP.appendChild(chatItem);
+    });
+}
+
+// Load initial chat list on page load
+document.addEventListener('DOMContentLoaded', displayChatList);
 
 document.addEventListener('DOMContentLoaded', () => {
     const previousChatDiv = document.querySelector('.previousChatDiv');
@@ -175,7 +197,3 @@ document.addEventListener('DOMContentLoaded', () => {
         toggleBtn.textContent = previousChatDiv.classList.contains('collapsed') ? '◄' : '►';
     });
 });
-
-const previousChatP = document.getElementById('previousChatP');
-const savedLocalChat = JSON.parse(localStorage.getItem('DeepSeek'));
-previousChatP.innerText = savedLocalChat;
