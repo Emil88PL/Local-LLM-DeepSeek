@@ -75,5 +75,6 @@ ollama run deepseek-r1:14b
 ---
 
 ## Notes:
+- [if you can't load module in UI - try first run in command line]
 - The smallest model (`1.5b`) is recommended for users with limited VRAM.
 - For larger models, ensure your hardware meets the requirements.
