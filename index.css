@@ -67,6 +67,10 @@ textarea::placeholder {
     background: rgba(255, 255, 255, 0.3);
 }
 
+#runButton:active {
+    background: rgba(255, 255, 255, 0.87);
+}
+
 button:hover {
     background: #45a049;
 }
