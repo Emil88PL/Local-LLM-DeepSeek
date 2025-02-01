@@ -174,7 +174,11 @@ function displayChatList() {
         return;
     }
 
-    savedChats.forEach((chat, index) => {
+    // Iterate over a reversed copy of savedChats so the most recent chat shows first.
+    savedChats.slice().reverse().forEach((chat, reversedIndex) => {
+        // Calculate the original index in the savedChats array
+        const originalIndex = savedChats.length - 1 - reversedIndex;
+
         const chatItemContainer = document.createElement('div');
         chatItemContainer.classList.add('chat-item-container');
 
@@ -183,10 +187,9 @@ function displayChatList() {
         chatItem.style.cursor = 'pointer';
         chatItem.classList.add('chat-timestamp');
 
-        // Show full chat when clicked
+        // Show full chat when clicked by loading its content into the textarea
         chatItem.addEventListener('click', () => {
             const inputField = document.getElementById('input');
-            // Set the value instead of innerHTML
             inputField.value = chat.message;
         });
 
@@ -199,7 +202,7 @@ function displayChatList() {
 
         // Delete functionality
         deleteIcon.addEventListener('click', () => {
-            savedChats.splice(index, 1);
+            savedChats.splice(originalIndex, 1); // Remove the correct chat
             localStorage.setItem('DeepSeek', JSON.stringify(savedChats));
             document.getElementById('input').value = '';
             displayChatList();
