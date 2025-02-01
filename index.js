@@ -165,6 +165,7 @@ document.getElementById('send').addEventListener('click', async () => {
 });
 
 function displayChatList() {
+    const modelLlm = document.getElementById('llm').value;
     const previousChatP = document.getElementById('previousChatP');
     previousChatP.innerHTML = ''; // Clear previous list
     const savedChats = JSON.parse(localStorage.getItem('DeepSeek')) || [];
@@ -190,7 +191,7 @@ function displayChatList() {
         // Show full chat when clicked by loading its content into the textarea
         chatItem.addEventListener('click', () => {
             const inputField = document.getElementById('input');
-            inputField.value = chat.question + "\n\n" + chat.message;
+            inputField.value = chat.question + "\t\t model: " + modelLlm + "\n\n" + chat.message;
         });
 
         // Create delete icon
