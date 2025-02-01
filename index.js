@@ -152,7 +152,7 @@ document.getElementById('send').addEventListener('click', async () => {
             }
 
             const currentTime = new Date().toLocaleString();
-            savedChats.push({ timestamp: currentTime, message: restOfResponse });
+            savedChats.push({ timestamp: currentTime, question: input, message: restOfResponse });
             localStorage.setItem('DeepSeek', JSON.stringify(savedChats));
 
             displayChatList();
@@ -190,7 +190,7 @@ function displayChatList() {
         // Show full chat when clicked by loading its content into the textarea
         chatItem.addEventListener('click', () => {
             const inputField = document.getElementById('input');
-            inputField.value = chat.message;
+            inputField.value = chat.question + "\n\n" + chat.message;
         });
 
         // Create delete icon
