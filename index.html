@@ -8,7 +8,7 @@
     <title>Ollama DeepSeek Chat</title>
 </head>
 <body>
-<h1>Ollama DeepSeek Chat</h1>
+<h1 class="noSelect">Ollama DeepSeek Chat</h1>
 
 <!-- Think Placeholder -->
 <div id="think-placeholder" class="think-placeholder"></div>
@@ -30,7 +30,7 @@
 <div class="llm-controls">
     <div>
         <div>
-            <label for="llm"></label><select name="llm" id="llm">
+            <label for="llm"></label><select name="llm" id="llm" class="noSelect">
                 <option value="1.5b" selected>model 1.5b</option>
                 <option value="8b">model 8b</option>
                 <option value="14b">model 14b</option>
@@ -38,10 +38,10 @@
             </select>
         </div>
         <div>
-            <button id="runButton" class="custom-tooltip" data-tooltip="(Optional) Load the model to the memory for quicker first response">Load model</button>
+            <button id="runButton" class="custom-tooltip noSelect" data-tooltip="(Optional) Load the model to the memory for quicker first response">Load model</button>
         </div>
     </div>
-    <div class="creativityDiv custom-tooltip"  data-tooltip="The temperature of the model. Increasing the temperature will make the model answer more creatively. (Default: 0.8)">
+    <div class="creativityDiv custom-tooltip noSelect"  data-tooltip="The temperature of the model. Increasing the temperature will make the model answer more creatively. (Default: 0.8)">
         <p>Creativity: <output id="creativityValue">0.8</output></p>
         <label>
             <input type="range" min="0" max="1.0" step="0.1" value="0.8" oninput="creativityValue.value = this.value">
@@ -49,10 +49,10 @@
     </div>
 </div>
 
-<button id="send">Send</button>
-<div id="initialsDate"></div>
+<button id="send" class="noSelect">Send</button>
+<div id="initialsDate" class="noSelect"></div>
 
-<div class="previousChatDiv collapsed">
+<div class="previousChatDiv collapsed noSelect">
     <h3>Previous chat</h3>
     <p id="previousChatP"></p>
 </div>
