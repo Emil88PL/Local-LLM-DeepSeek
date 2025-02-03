@@ -3,7 +3,7 @@ const sendButton = document.getElementById('send');
 async function sendPromptToOllama(prompt, modelLlm, temp) {
     const url = URL;
     const data = {
-        model: 'deepseek-r1:' + modelLlm,
+        model: modelLlm,
         prompt: prompt,
         stream: false,
         "options": {
@@ -55,7 +55,7 @@ runButton.addEventListener('click', async function() {
     const modelLlm = document.getElementById('llm').value;
     const url = URL;
     const data = {
-        model: 'deepseek-r1:' + modelLlm,
+        model: modelLlm,
         prompt: '',
         stream: false,
     };
