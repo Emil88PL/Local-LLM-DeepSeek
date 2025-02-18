@@ -243,3 +243,100 @@ document.querySelector('.broom').addEventListener('click', () => {
     document.getElementById('input').value = '';
     displayChatList();
 });
+
+
+let synth = window.speechSynthesis;
+let utterance;
+
+// function getTextFromXPath(xpath) {
+//     let result = document.evaluate(xpath, document, null, XPathResult.STRING_TYPE, null);
+//     return result.stringValue;
+// }
+
+function speakText() {
+    if (!('speechSynthesis' in window)) {
+        console.error("Your browser does not support text-to-speech!");
+        return;
+    }
+
+    const speakFrom = document.getElementById('speakFrom').value; // Get selected option
+    const volume = parseFloat(document.getElementById('volume').value);
+
+    let text = "";
+    if (speakFrom === "input") {
+        text = document.getElementById('input').value.trim();
+    } else if (speakFrom === "output") {
+        text = document.getElementById('output').innerText.trim();
+    } else if (speakFrom === "think-placeholder") {
+        text = document.getElementById('think-placeholder').innerText.trim();
+    }
+
+    if (!text) {
+        console.error(`No text found in the selected option (${speakFrom})!`);
+        return;
+    }
+
+    const voices = synth.getVoices();
+    let selectedVoice = voices.find(voice =>
+        voice.lang === 'en-GB' && voice.name.toLowerCase().includes('female'));
+
+    if (!selectedVoice) {
+        console.warn("British female voice not found, using default voice.");
+        selectedVoice = voices[0];
+    }
+
+    // Split long text into smaller chunks
+    const sentences = text.match(/[^.!?]+[.!?]+|\s*[^.!?]+$/g) || [text];
+    let index = 0;
+
+    function speakNext() {
+        if (index < sentences.length) {
+            let utterance = new SpeechSynthesisUtterance(sentences[index].trim());
+            utterance.voice = selectedVoice;
+            utterance.pitch = 1;
+            utterance.rate = 1;
+            utterance.volume = volume;
+
+            utterance.onend = function () {
+                index++;
+                speakNext(); // Speak next chunk
+            };
+
+            synth.speak(utterance);
+        }
+    }
+
+    speakNext(); // Start speaking
+}
+
+
+
+
+function pauseText() {
+    if (synth.speaking && !synth.paused) {
+        synth.pause();
+        console.log('paused');
+    }
+}
+
+function resumeText() {
+    if (synth.paused) {
+        synth.resume();
+        console.log('paused');
+    }
+}
+
+function stopText() {
+    if (synth.speaking) {
+        synth.cancel();
+        console.log('stopped');
+    }
+}
+
+// Ensure the voices are loaded before accessing them
+if ('speechSynthesis' in window) {
+    window.speechSynthesis.onvoiceschanged = () => {
+        console.log('Speech synthesis started');
+        // This ensures that voices are loaded and ready
+    };
+}

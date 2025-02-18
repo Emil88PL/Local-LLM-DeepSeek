@@ -63,6 +63,20 @@ textarea::placeholder {
     transition: background 0.3s ease;
 }
 
+.playback {
+    width: 240px;
+}
+
+.playStop {
+    margin-top: 7px;
+    background: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+}
+
 .broom,
 #runButton {
     background: rgba(255, 255, 255, 0.2);
