@@ -78,3 +78,8 @@ ollama run deepseek-r1:14b
 - [if you can't load module in UI - try first run in command line]
 - The smallest model (`1.5b`) is recommended for users with limited VRAM.
 - For larger models, ensure your hardware meets the requirements.
+
+![img.png](img/chat.png)
+-
+- Loaded model
+- on the right Text to Speech - You can select what you want to hear (Questions, Answer, Thoughts)
