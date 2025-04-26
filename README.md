@@ -83,3 +83,4 @@ ollama run deepseek-r1:14b
 -
 - Loaded model
 - on the right Text to Speech - You can select what you want to hear (Questions, Answer, Thoughts)
+- [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/N4N51E08N8)
