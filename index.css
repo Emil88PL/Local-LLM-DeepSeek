@@ -452,7 +452,7 @@ option {
     position: absolute;
     bottom: 40px;
     right: -10px;
-    width: 260px;
+    width: 280px;
     background-color: #1e3c72;
     color: white;
     padding: 12px;
@@ -462,6 +462,7 @@ option {
     visibility: hidden;
     transition: opacity 0.3s, visibility 0.3s;
     box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+    text-align: center;
 }
 
 .info-icon:hover .tooltip {
