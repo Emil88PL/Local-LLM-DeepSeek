@@ -1,5 +1,7 @@
 const URL = 'http://127.0.0.1:11434/api/generate';
 const sendButton = document.getElementById('send');
+let conversationHistory = [];
+
 async function sendPromptToOllama(prompt, modelLlm, temp) {
     const url = URL;
     const data = {
@@ -96,23 +98,31 @@ runButton.addEventListener('click', async function() {
 
 document.getElementById('send').addEventListener('click', async () => {
     const modelLlm = document.getElementById('llm').value;
-    const input = document.getElementById('input').value;
+    const currentInput = document.getElementById('input').value;
     const output = document.getElementById('output');
     const thinkingOverlay = document.getElementById('thinking-overlay');
     const thinkPlaceholder = document.getElementById('think-placeholder');
     const sendButton = document.getElementById('send');
 
-    if (input) {
+    if (currentInput) {
         thinkingOverlay.style.display = 'flex';
 
-        // Simulated response for demo (replace with your real response)
-        const response = await sendPromptToOllama(input, modelLlm, slider);
+        // 2. Prepare the prompt by prepending the existing conversation history
+        let promptWithHistory = "";
+        conversationHistory.forEach(turn => {
+            // Format: "User: [content]\nAssistant: [content]\n"
+            promptWithHistory += `${turn.role === 'user' ? 'User' : 'Assistant'}: ${turn.content}\n`;
+        });
+        promptWithHistory += `User: ${currentInput}`; // Add the current user input
+
+        // Use the prompt with history instead of just the current input
+        const response = await sendPromptToOllama(promptWithHistory, modelLlm, slider);
 
         thinkingOverlay.style.display = 'none';
 
         if (response) {
             const decodedResponse = response.replace(/\\u003c/g, '<').replace(/\\u003e/g, '>');
-            const thinkRegex = /<think>([\s\S]*?)<\/think>/;
+            const thinkRegex = /([\s\S]*?)<\/think>/;
             const thinkMatch = decodedResponse.match(thinkRegex);
             let thinkContent = thinkMatch ? thinkMatch[1].trim() : null;
 
@@ -120,7 +130,7 @@ document.getElementById('send').addEventListener('click', async () => {
                 output.style.display = 'block';
                 thinkPlaceholder.style.display = 'block';
                 thinkContent = thinkContent
-                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                    .replace(/\*\*(.*?)\*\*/g, '$1')
                     .replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>')
                     .replace(/###\s?(.*?)(?=\n|$)/g, '<h3>$1</h3>');
                 thinkPlaceholder.innerHTML = thinkContent;
@@ -137,8 +147,16 @@ document.getElementById('send').addEventListener('click', async () => {
                 .replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>')
                 .replace(/###\s?(.*?)(?=\n|$)/g, '<h3>$1</h3>');
 
+            // Store the AI's message *before* any HTML display formatting for future prompts
+            let aiResponseMessage = decodedResponse.replace(thinkRegex, '').trim();
+
+            // 3. Update conversation history with the current turn
+            conversationHistory.push({ role: 'user', content: currentInput });
+            conversationHistory.push({ role: 'assistant', content: aiResponseMessage });
+
             // Display chat in output
-            output.innerHTML += `<span class="myInput">You: ${input}</span><br>Ollama: ${restOfResponse}<br><br>`;
+            output.innerHTML += `<div><strong>You:</strong> ${currentInput}</div><div><strong>Ollama:</strong> ${restOfResponse}</div><br>`;
+
             document.getElementById('input').value = '';
 
             // Ensure localStorage data is an array
@@ -152,7 +170,12 @@ document.getElementById('send').addEventListener('click', async () => {
             }
 
             const currentTime = new Date().toLocaleString();
-            savedChats.push({ timestamp: currentTime, question: input, model: modelLlm, message: restOfResponse });
+            savedChats.push({
+                timestamp: currentTime,
+                question: currentInput,
+                model: modelLlm,
+                message: aiResponseMessage // Store the raw response without HTML formatting
+            });
             localStorage.setItem('DeepSeek', JSON.stringify(savedChats));
 
             displayChatList();
