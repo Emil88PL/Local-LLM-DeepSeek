@@ -263,7 +263,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Clear the textarea when the broom icon is clicked
 document.querySelector('.broom').addEventListener('click', () => {
+    // Clear the input field
     document.getElementById('input').value = '';
+
+    // Clear conversation history
+    conversationHistory = [];
+
+    // Clear the visual output
+    const output = document.getElementById('output');
+    const thinkPlaceholder = document.getElementById('think-placeholder');
+
+    output.innerHTML = '';
+    thinkPlaceholder.innerHTML = '';
+    thinkPlaceholder.style.display = 'none';
+    output.style.display = 'none';
+
+    // Refresh the chat list display
     displayChatList();
 });
 
